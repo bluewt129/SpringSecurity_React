@@ -25,6 +25,12 @@ DB : Oracle
 #### 로그인 시 서버로 전송되는 값 콘솔 로그
 
 
+![image](https://github.com/user-attachments/assets/8a094bc8-e684-4278-b55f-59cc9e27e349)
+
+
+#### 로그인 시 알림창으로 사용자 닉네임 출력하기
+
+
 ![image](https://github.com/user-attachments/assets/6ee5982d-6c38-4f83-a5b9-ff626eec0a43)
 
 
