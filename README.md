@@ -31,13 +31,14 @@ DB : Oracle
 #### 로그인 시 알림창으로 사용자 닉네임 출력하기
 
 
-![image](https://github.com/user-attachments/assets/6ee5982d-6c38-4f83-a5b9-ff626eec0a43)
+![image](https://github.com/user-attachments/assets/ab1352d1-13c1-4903-bc4f-3f10942caa27)
 
 
 #### 로그인 성공 시 세션에 사용자 정보 담기
 
 
 ![image](https://github.com/user-attachments/assets/49a87323-5326-4d1d-9ef2-c8ef1420cc3d)
+
 
 #### 로그인 후 쿠키 정보 확인
 
