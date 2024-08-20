@@ -1,4 +1,4 @@
-# Spring Security Login
+# Spring Security Login / JWT Token Access
 
 
 ---------------------
@@ -14,6 +14,8 @@ DB : Oracle
 
 
 -----------------------
+
+# Spring Security Login
 
 
 ## 1. 사용자 권한 로그인
@@ -158,5 +160,84 @@ DB : Oracle
 #### 로그인 시에는 이 암호화된 비밀번호를 복호화한다다
 
 
+
+
+-------------------------
+
+
+
+
+# JWT Token Access
+
+
+## 1. 사용자 로그인 시 Token 발급
+
+
+![image](https://github.com/user-attachments/assets/70876bb9-c735-4bea-bc9b-aa4c75c0ee86)
+
+
+#### 로그인 시 Header 정보에 Token이 발급된 것을 확인
+
+
+
+
+-------------------------
+
+
+
+
+## 2.사용자 요청 보내기
+
+
+![image](https://github.com/user-attachments/assets/479bbfe9-1396-45dc-8a83-1d56bb9305e6)
+
+
+#### /user/... 로 시작하는 Ajax 요청을 보내면
+
+
+![image](https://github.com/user-attachments/assets/18375db7-5b44-4600-be8e-c90d6e2ae4f7)
+
+
+#### 서버는 토큰을 확인 후 로그인한 사용자에게 응답을 보냄
+
+
+![image](https://github.com/user-attachments/assets/4f146be0-258f-4b7b-bf8d-a1d09c64166d)
+
+
+#### /user/... 로 시작하는 Ajax 요청확인 PostMan : 200 (로그인한 모든 사용자 승인)
+
+
+![image](https://github.com/user-attachments/assets/3f8f4212-c7c5-4a26-9fa7-13de313d72c8)
+
+
+#### /admin/... 로 시작하는 Ajax 요청확인 PostMan : 403 (관리자에게만 승인) 
+
+
+
+
+-------------------------
+
+
+
+
+## 3.관리자 요청 보내기
+
+
+![image](https://github.com/user-attachments/assets/65965eee-b856-4423-8a9e-d7d0437d9071)
+
+
+#### 관리자 계정으로 접속하여 /admin/... 로 시작하는 Ajax 요청을 보내면
+
+
+![image](https://github.com/user-attachments/assets/299e10e8-0992-4ff9-8a87-df571ea8d94f)
+
+
+#### 서버는 토큰을 확인 후 로그인한 사용자(관리자)에게 응답을 보냄
+
+
+![image](https://github.com/user-attachments/assets/c68dbbc3-597f-4ae1-bb89-70e184cfbd81)
+
+
+#### 관리자 계정으로 접속하여 /user/... 로 시작하는 Ajax 요청확인 PostMan : 200 (로그인한 모든 사용자 승인)
 
 
