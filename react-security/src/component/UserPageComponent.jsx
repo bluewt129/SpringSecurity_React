@@ -1,37 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import securityImage from '../images/security.png'; // 이미지 경로 임포트
 import axios from 'axios';
 
-const AdminComponent = () => {
-    const [userData, setUserData] = useState(null);
-    const [loading, setLoading] = useState(true);
+const UserPageComponent = () => {
+
     const navigate = useNavigate();
+    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
+        console.log("1111");
         const storedUserData = window.sessionStorage.getItem("user");
         if (storedUserData) {
             const parsedData = JSON.parse(storedUserData);
+            console.log("파싱된 데이터:", parsedData);
             setUserData(parsedData);
-
-            if (!parsedData.role.includes('ROLE_ADMIN')) {
-                setTimeout(() => {
-                    setLoading(false);
-                    navigate('/mainhome');
-                }, 1700); 
-            } else {
-                setLoading(false); 
-            }
+            console.log("2222");
         } else {
-            setTimeout(() => {
-                navigate('/');
-            }, 1700);
+            console.log("저장된 사용자 데이터가 없습니다.");
         }
-    }, [navigate]);
+    }, []);
+    
+    useEffect(() => {
+        if (userData) {
+            console.log("userData.role:", userData.role);
+        } else {
+            console.log("userData가 설정되지 않았습니다.");
+        }
+    }, [userData]);
+    
+    
 
-    if (!userData || !userData.role.includes('ROLE_ADMIN')) {
-        return <div style={{fontSize:30, marginTop:300}}>관리자 권한이 필요합니다</div>;
-    }
+    useEffect(() => {
+        if (userData) {
+            console.log(userData.role);
+        }
+    }, [userData]);
+
 
     const handleLogout = async () => {
         try {
@@ -46,35 +51,38 @@ const AdminComponent = () => {
     };
 
     const goToMainPage = () => {
-        navigate('/mainhome'); 
+        navigate('/mainhome');
     };
 
-    const handleAdminRequest = async () => {
+    if (!userData || !userData.role) {
+        return <div>Loading...</div>;
+    }
+
+    const handleUserRequest = async () => {
         const token = userData.token;  // parsedData 대신 userData를 사용합니다.
         try {
-            const response = await axios.get('http://localhost:8383/admin/request', {
+            const response = await axios.get('http://localhost:8383/user/request', {
                 headers: {
                     Authorization: `Bearer ${token}` // 헤더에 토큰을 추가
                 },
                 withCredentials: true, // 이 줄이 필요하다면 추가
             });
             if (response.status === 200) {
-                alert('관리자 요청 성공');
+                alert('사용자 요청 성공');
             }
         } catch (error) {
-            console.error('관리자 요청 실패', error);
+            console.error('사용자 요청 실패', error);
         }
     };
-    
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-             <div><span style={{fontSize:20, marginBottom:100}}><b>Admin Page</b></span></div>
+             <div><span style={{fontSize:20, marginBottom:100}}><b>User Page</b></span></div>
             <img src={securityImage} alt="Security" style={{ maxWidth: '50%', height: 'auto' }} />
             <p>Role: {userData.role}</p>
             <p>NickName: {userData.nickname}</p>
-            <button onClick={handleAdminRequest} style={{ marginTop: '15px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>
-                관리자 요청 보내기
+            <button onClick={handleUserRequest} style={{ marginTop: '15px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>
+                사용자 요청 보내기
             </button>
             <button onClick={goToMainPage} style={{ marginTop: '15px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>
                 목록
@@ -86,4 +94,4 @@ const AdminComponent = () => {
     );
 };
 
-export default AdminComponent;
+export default UserPageComponent;

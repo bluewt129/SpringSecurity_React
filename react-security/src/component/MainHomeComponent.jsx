@@ -53,6 +53,10 @@ const MainHomeComponent = () => {
         navigate('/admin');
     };
 
+    const goToUserPage = () => {
+        navigate('/userPage');
+    };
+
     if (!userData || !userData.role) {
         return <div>Loading...</div>;
     }
@@ -62,12 +66,17 @@ const MainHomeComponent = () => {
             <div><span style={{ fontSize: 20, marginBottom: 100 }}><b>Login Success</b></span></div>
             <img src={securityImage} alt="Security" style={{ maxWidth: '50%', height: 'auto' }} />
             <p>Role: {userData.role}</p>
-            {userData.role === '[ROLE_ADMIN]' && (
-                <button onClick={goToAdminPage} style={{ marginTop: '10px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>
-                    관리자 페이지
+            <p>NickName: {userData.nickname}</p>
+            {userData.role.includes('ROLE_ADMIN') && (
+    <button onClick={goToAdminPage} style={{ marginTop: '15px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>
+        관리자 페이지
+    </button>
+)}
+
+            <button onClick={goToUserPage} style={{ marginTop: '15px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>
+                    사용자 페이지
                 </button>
-            )}
-            <button onClick={handleLogout} style={{ marginTop: '20px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>
+            <button onClick={handleLogout} style={{ marginTop: '15px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>
                 로그아웃
             </button>
 
