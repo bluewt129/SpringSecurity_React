@@ -241,3 +241,11 @@ DB : Oracle
 #### 관리자 계정으로 접속하여 /user/... 로 시작하는 Ajax 요청확인 PostMan : 200 (로그인한 모든 사용자 승인)
 
 
+![image](https://github.com/user-attachments/assets/18c8ea23-ee87-4711-b227-4cff01ece2f2)
+
+
+#### 관리자 계정으로 접속하여 /admin/... 로 시작하는 Ajax 요청확인 PostMan : 200 (관리자에게만 승인)
+
+
+
+
