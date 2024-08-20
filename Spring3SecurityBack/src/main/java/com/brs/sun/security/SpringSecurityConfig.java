@@ -21,8 +21,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import com.brs.sun.jpa.SecMemService;
-
 
 @Configuration
 @EnableWebSecurity

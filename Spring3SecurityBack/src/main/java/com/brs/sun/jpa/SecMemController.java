@@ -2,8 +2,10 @@ package com.brs.sun.jpa;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,20 +39,24 @@ public class SecMemController {
 		
 		String id = authentication.getName();
 		String role = authentication.getAuthorities().toString();
+		Optional<SecMemEntity> sme = service.getUserInfo(id);
+		String nickname = sme.get().getNickname();
 		
 		log.info("로그인한 유저 아이디 : {}", id);
 		log.info("로그인한 유저 권한 : {}", role);
+		log.info("로그인한 유저 닉네임 : {}", nickname);
 		
-		Map<String, String> login = createUserInfo(id, role);
+		Map<String, String> login = createUserInfo(id, role, nickname);
 		
 		return ResponseEntity.ok(login);
 	}
 	
 	//로그인 이후 정보 입력
-	private Map<String, String> createUserInfo(String id, String role) {
+	private Map<String, String> createUserInfo(String id, String role, String nickname) {
         Map<String, String> userInfo = new HashMap<>();
         userInfo.put("id", id);
         userInfo.put("role", role);
+        userInfo.put("nickname", nickname);
         return userInfo;
     }
 	
@@ -99,5 +105,30 @@ public class SecMemController {
 	    return ResponseEntity.ok("회원 가입 성공");
 	}
 	
+	// 로그인 성공 후 자동 로그인 상태 확인
+    @GetMapping("/checkRememberMe")
+    public ResponseEntity<Map<String, String>> checkRememberMe(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        
+        Map<String, String> response = new HashMap<>();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("rememberMe-cookie".equals(cookie.getName())) {
+                    // Remember-me 쿠키가 존재하는 경우
+                    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                    if (authentication != null && authentication.isAuthenticated()) {
+                        String id = authentication.getName();
+                        Optional<SecMemEntity> sme = service.getUserInfo(id);
+                		String nickname = sme.get().getNickname();
+                        response.put("id", id);
+                        response.put("nickname", nickname); // 사용자 이름 등 추가 정보
+                        response.put("role", authentication.getAuthorities().toString());
+                        return ResponseEntity.ok(response);
+                    }
+                }
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
 	
 }

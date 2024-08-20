@@ -8,11 +8,27 @@ const MainHomeComponent = () => {
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
+        console.log("1111");
         const storedUserData = window.sessionStorage.getItem("user");
         if (storedUserData) {
-            setUserData(JSON.parse(storedUserData));
+            const parsedData = JSON.parse(storedUserData);
+            console.log("파싱된 데이터:", parsedData);
+            setUserData(parsedData);
+            console.log("2222");
+        } else {
+            console.log("저장된 사용자 데이터가 없습니다.");
         }
     }, []);
+    
+    useEffect(() => {
+        if (userData) {
+            console.log("userData.role:", userData.role);
+        } else {
+            console.log("userData가 설정되지 않았습니다.");
+        }
+    }, [userData]);
+    
+    
 
     useEffect(() => {
         if (userData) {

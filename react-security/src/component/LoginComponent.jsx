@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import securityImage from '../images/security.png';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,6 +8,41 @@ const LoginComponent = () => {
   const [userPw, setUserPw] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkRememberMe = async () => {
+        try {
+            const response = await axios.get('http://localhost:8383/checkRememberMe', { withCredentials: true });
+            console.log('응답 전체:', response.data);
+            if (response.status === 200 && response.data && response.data.id) {
+                console.log('자동 로그인 사용자 ID:', response.data.id);
+                window.sessionStorage.setItem("user", JSON.stringify(response.data));
+                navigate('/mainhome', { state: { userData: response.data } });
+            } else {
+                console.log('자동 로그인 정보가 없습니다.');
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                console.error('사용자가 인증되지 않았습니다. 로그인 페이지로 이동합니다.');
+                navigate('/');
+            } else {
+                console.error('자동 로그인 체크 실패:', error);
+            }
+        } finally {
+            setLoading(false);  // 로딩 상태 종료
+        }
+    };
+
+    checkRememberMe();
+}, [navigate]);
+
+
+if (loading) {
+    return <div>Loading...</div>;
+}
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,19 +67,22 @@ const LoginComponent = () => {
       console.log('로그인 성공:', response.data);
 
       if (response.status === 200) {
-        alert(`${response.data.id} 님, 환영합니다`);
+        alert(`${response.data.nickname} 님, 환영합니다`);
         console.log('id : ' + response.data.id);
         console.log('role:', response.data.role);
+        console.log('nickname:', response.data.nickname);
 
         const userData = {
           id: response.data.id,
           role: response.data.role,
-          
+          nickname: response.data.nickname,
         };
+
+        console.log("userData", userData);
 
         window.sessionStorage.setItem("user", JSON.stringify(userData));
 
-        navigate('/mainhome');
+        navigate('/mainhome', { state: { userData: response.data } });
       }
 
     } catch (error) {

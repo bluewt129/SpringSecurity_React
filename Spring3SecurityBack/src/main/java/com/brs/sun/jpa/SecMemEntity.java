@@ -33,6 +33,10 @@ public class SecMemEntity {
 	@Column(name="PASSWORD", nullable = false)
 	private String password;
 	
+	@Column(name="NICKNAME", nullable = false)
+	private String nickname;
+	
+	
 	@Column(name="ROLE", nullable = false)
 	private String role;
 }
