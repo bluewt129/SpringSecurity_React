@@ -5,12 +5,23 @@
 
 
 ### 사용 기술 환경
+#### Backend
+![Java](https://img.shields.io/badge/Java-17-brightgreen?style=for-the-badge&logo=java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.8-brightgreen?style=for-the-badge&logo=springboot&logoColor=white)
+![JPA](https://img.shields.io/badge/JPA-Enabled-yellow?style=for-the-badge)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-Enabled-green?style=for-the-badge&logo=springsecurity&logoColor=white)
 
-Backend : Java17, SpringBoot, JPA, Spring Security
+<br><br>
 
-Frontend: React, Javascript
+#### Frontend
+![React](https://img.shields.io/badge/React-Enabled-blue?style=for-the-badge&logo=react)
+![JavaScript](https://img.shields.io/badge/JavaScript-Enabled-yellow?style=for-the-badge&logo=javascript&logoColor=white)
 
-DB : Oracle
+<br><br>
+
+#### DB
+![Oracle 21c](https://img.shields.io/badge/Oracle%2021c-Enabled-red?style=for-the-badge&logo=oracle&logoColor=white)
+
 
 
 -----------------------
