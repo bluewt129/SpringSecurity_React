@@ -11,13 +11,11 @@
 ![JPA](https://img.shields.io/badge/JPA-Enabled-yellow?style=for-the-badge)
 ![Spring Security](https://img.shields.io/badge/Spring%20Security-Enabled-green?style=for-the-badge&logo=springsecurity&logoColor=white)
 
-<br><br>
 
 #### Frontend
 ![React](https://img.shields.io/badge/React-Enabled-blue?style=for-the-badge&logo=react)
 ![JavaScript](https://img.shields.io/badge/JavaScript-Enabled-yellow?style=for-the-badge&logo=javascript&logoColor=white)
 
-<br><br>
 
 #### DB
 ![Oracle 21c](https://img.shields.io/badge/Oracle%2021c-Enabled-red?style=for-the-badge&logo=oracle&logoColor=white)
